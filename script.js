@@ -2,8 +2,33 @@
 
 let quantity = 0;
 let price = 125;
+let hidden = true;
 const zoomDiv = document.querySelector(".zoom");
-let productImg = document.querySelector(".scalable-img");
+let productImg = document.querySelector(".scalable-image");
+let id = Number(
+  document.querySelector(".display-window .active-box img").getAttribute("id")
+);
+const swiperContainer = document.querySelector(".pop-up");
+
+function refresh(picture) {
+  picture.addEventListener("mouseover", function () {
+    if (hidden) {
+      picture
+        .closest(".display-block > .all-images")
+        .querySelectorAll(".image-box")
+        .forEach((box) => box.classList.remove("active-box"));
+
+      picture.closest(".image-box").classList.add("active-box");
+      let id = Number(picture.getAttribute("id"));
+      picture
+        .closest(".display-block")
+        .querySelector(
+          ".scalable-image"
+        ).src = `images/image-product-${id}.jpg`;
+      productImg = document.querySelector(".display-window >.scalable-img");
+    }
+  });
+}
 
 window.addEventListener("click", function (e) {
   if (e.target.closest(".plus-icon")) {
@@ -35,21 +60,7 @@ window.addEventListener("click", function (e) {
   }
 });
 
-document.querySelectorAll(".little-image").forEach((picture) =>
-  picture.addEventListener("mouseover", function () {
-    picture
-      .closest(".all-images")
-      .querySelectorAll(".image-box")
-      .forEach((box) => box.classList.remove("active-box"));
-
-    picture.closest(".image-box").classList.add("active-box");
-    let id = Number(picture.getAttribute("id"));
-    picture
-      .closest(".display-block")
-      .querySelector(".scalable-image").src = `images/image-product-${id}.jpg`;
-    productImg = document.querySelector(".scalable-img");
-  })
-);
+document.querySelectorAll(".little-image").forEach(refresh);
 
 /* zoom effect */
 document
@@ -77,4 +88,80 @@ document
     infoBlock.style.margin = "auto 0 ";
   });
 
-export { productImg };
+const slidedImgs = document.querySelectorAll(".container > img");
+const btnSlideRight = document.querySelector(".btn-slide-right");
+const btnSlideLeft = document.querySelector(".btn-slide-left");
+const dots = document.querySelector(".dots");
+let curSlide = 0;
+
+/* sliding images */
+
+slidedImgs.forEach((img, i) => {
+  img.style.transform = `translateX(${100 * i}%)`;
+});
+
+btnSlideRight.addEventListener("click", function () {
+  if (curSlide > slidedImgs.length - 2) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  slidedImgs.forEach((img, i) => {
+    img.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+  });
+  // curSlide = id - 1
+  // id = curSlide + 1
+});
+
+btnSlideLeft.addEventListener("click", function () {
+  if (curSlide <= 0) {
+    curSlide = slidedImgs.length - 1;
+  } else {
+    curSlide--;
+  }
+
+  slidedImgs.forEach((img, i) => {
+    img.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+  });
+});
+/* opening the pop up */
+
+productImg.addEventListener("click", function () {
+  swiperContainer.classList.remove("hidden");
+  hidden = false;
+  let id = Number(
+    document.querySelector(".display-window .active-box img").getAttribute("id")
+  );
+  swiperContainer.querySelectorAll(".image-box").forEach((imageBox) => {
+    if (Number(imageBox.querySelector("img").getAttribute("id")) === id) {
+      imageBox.classList.add("active-box");
+    }
+  });
+  curSlide = id - 1;
+  slidedImgs.forEach((img, i) => {
+    img.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+  });
+  swiperContainer.querySelectorAll(".image-box").forEach(popUpRefresh);
+});
+
+// function slide(slidedImgs, id) {
+//   let curSlide = id - 1;
+//   slidedImgs.forEach((img, i) => {
+//     img.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+//   });
+// }
+function popUpRefresh(picture) {
+  picture.addEventListener("mouseover", function () {
+    console.log(picture);
+    if (!hidden) {
+      picture
+        .closest(".all-images")
+        .querySelectorAll(".image-box")
+        .forEach((box) => box.classList.remove("active-box"));
+
+      picture.closest(".image-box").classList.add("active-box");
+      let id = Number(picture.querySelector("img").getAttribute("id"));
+      console.log(id);
+    }
+  });
+}

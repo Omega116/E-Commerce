@@ -351,7 +351,7 @@ button {
   cursor: pointer;
 }
 
-.dots {
+.dots .all-images {
   position: absolute;
   bottom: -13.2rem;
   display: flex;
