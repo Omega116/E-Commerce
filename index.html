@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | E-commerce product page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  </head>
+  <body>
+    <main>
+      <div class="pop-up hidden">
+        <div class="slider">
+          <button class="btn-slide slide-rigth">
+            <img src="images/icon-next.svg" alt="" />
+            <div class="btn-slide-right full-space"></div>
+          </button>
+          <button class="btn-slide slide-left">
+            <img src="images/icon-previous.svg" alt="" />
+            <div class="btn-slide-left full-space"></div>
+          </button>
+          <div class="container">
+            <img src="images/image-product-1.jpg" alt="" />
+            <img src="images/image-product-2.jpg" alt="" />
+            <img src="images/image-product-3.jpg" alt="" />
+            <img src="images/image-product-4.jpg" alt="" />
+          </div>
+          <div class="dots">
+            <div class="image-box active-box">
+              <img
+                class="little-image"
+                id="1"
+                src="images/image-product-1-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="1"
+                src="images/image-product-2-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="1"
+                src="images/image-product-3-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="1"
+                src="images/image-product-4-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="header">
+        <div class="navbar">
+          <nav class="nav">
+            <p class="logo">sneakers</p>
+            <div class="links-box">
+              <a href="#" class="nav-item">Collections</a>
+              <a href="#" class="nav-item">Men</a>
+              <a href="#" class="nav-item">Women</a>
+              <a href="#" class="nav-item">About</a>
+              <a href="#" class="nav-item">Contact</a>
+            </div>
+          </nav>
+        </div>
+        <div class="profile">
+          <img src="images/icon-cart.svg" alt="cart icon" />
+          <img src="images/image-avatar.png" alt="profile picture" />
+        </div>
+      </header>
+      <section class="display-window">
+        <div class="display-block">
+          <div class="showcased-item">
+            <div class="highlight"></div>
+            <img
+              class="scalable-image"
+              src="images/image-product-1.jpg"
+              alt="showcased shoes picture"
+            />
+          </div>
+          <div class="all-images">
+            <div class="image-box active-box">
+              <img
+                class="little-image"
+                id="1"
+                src="images/image-product-1-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="2"
+                src="images/image-product-2-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="3"
+                src="images/image-product-3-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+            <div class="image-box">
+              <img
+                class="little-image"
+                id="4"
+                src="images/image-product-4-thumbnail.jpg"
+                alt="shoes picture"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="zoom">
+            <img
+              class="zoom-image"
+              src="images/image-product-1.jpg"
+              alt="showcased shoes picture"
+            />
+          </div>
+          <p class="company">sneaker Company</p>
+          <p class="title">Fall Limited Edition Sneakers</p>
+          <p class="item-info">
+            These low-profile sneakers are your perfect casual wear companion.
+            Featuring a durable rubber out sole, they'll withstand everything
+            the weather can offer.
+          </p>
+
+          <p class="price">
+            $<span class="current-price">125.00</span>
+            <span class="discount"> 50% </span>
+          </p>
+          <p class="original-price">$250.00</p>
+          <div class="purchase-box">
+            <div class="quantity-choice">
+              <img
+                src="images/icon-minus.svg"
+                alt="minus icon"
+                class="minus-icon"
+              />
+              <p class="quantity">0</p>
+              <img
+                src="images/icon-plus.svg"
+                alt="plus icon"
+                class="plus-icon"
+              />
+            </div>
+            <button class="add-to-cart">
+              <img src="images/icon-cart.svg" alt="cart icon" />
+              <p>Add to cart</p>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+    <script src="slide.js"></script>
+  </body>
+</html>
