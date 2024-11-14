@@ -13,6 +13,10 @@
       sizes="32x32"
       href="./images/favicon-32x32.png"
     />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
 
     <title>Frontend Mentor | E-commerce product page</title>
 
@@ -89,7 +93,15 @@
         </div>
         <div class="profile">
           <img src="images/icon-cart.svg" alt="cart icon" />
-          <img src="images/image-avatar.png" alt="profile picture" />
+          <div class="pic-rounded-container">
+            <img src="images/image-avatar.png" alt="profile picture" />
+            <!-- <div class="rotate-div"></div> -->
+          </div>
+          <div class="shopping-list hidden">
+            <div class="title-box">
+              <h2 class="shopping-list-title">Cart</h2>
+            </div>
+          </div>
         </div>
       </header>
       <section class="display-window">
@@ -172,7 +184,7 @@
                 class="plus-icon"
               />
             </div>
-            <button class="add-to-cart">
+            <button class="btn-styled add-to-cart">
               <img src="images/icon-cart.svg" alt="cart icon" />
               <p>Add to cart</p>
             </button>

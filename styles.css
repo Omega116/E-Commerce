@@ -44,7 +44,7 @@ button {
 }
 
 .header {
-  width: 92%;
+  width: 100%;
   height: 12rem;
   display: flex;
   justify-content: space-between;
@@ -73,23 +73,100 @@ button {
 }
 
 .nav-item {
+  position: relative;
   font-size: 1.6rem;
   color: var(--Dark-grayish-blue);
+  transition: 0.3s;
+}
+
+.nav-item:hover {
+  color: var(--Black);
+  transition: 0.3s;
+}
+
+.nav-item::before {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  bottom: -5rem;
+  left: 0;
+  background-color: transparent;
+  transition: 0.3s;
+}
+.nav-item:hover::before {
+  background-color: var(--main-color);
 }
 
 .profile {
   display: flex;
-  gap: 4rem;
+  gap: 2.4rem;
   align-items: center;
 }
 
-.profile img {
-  height: 5rem;
-}
-
 .profile img[alt="cart icon"] {
+  transition: 0.2s;
   height: 2rem;
 }
+
+.profile img[alt="cart icon"]:hover {
+  filter: brightness(0);
+}
+
+.profile img[alt="profile picture"] {
+  height: 6rem;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.profile img[alt="profile picture"]:hover {
+  box-shadow: 2px 0px 4px var(--main-color), 0px 2px 4px var(--main-color),
+    -2px 0px 4px var(--main-color), 0px -2px 4px var(--main-color);
+}
+
+/* 
+    Add rotation effect
+*/
+/* .pic-rounded-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pic-rounded-container .rotate-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-radius: 50%;
+  z-index: 50;
+  transform: translate(-0.5rem, -0.5rem);
+}
+
+.pic-rounded-container:hover .rotate-div {
+  border-top: 4px solid var(--main-color);
+  border-bottom: 4px solid var(--main-color);
+  transform: translate(-0.5rem, -0.5rem);
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
 
 .display-window {
   margin: 10rem 0;
@@ -211,22 +288,27 @@ button {
   width: 1rem;
 }
 
-.add-to-cart {
+.btn-styled {
   width: 60%;
   border-radius: 9px;
   background-color: var(--main-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
 }
 
-.add-to-cart img {
+.btn-styled:hover {
+  background-color: #fbdab5;
+}
+
+.btn-styled img {
   filter: brightness(0);
   margin-right: 1.4rem;
   width: 1.8rem;
 }
 
-.add-to-cart p {
+.btn-styled p {
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -360,4 +442,105 @@ button {
 
 .dots img {
   width: 10rem;
+}
+
+/* 
+    Shopping list style
+ */
+
+.shopping-list {
+  width: 40rem;
+  height: fit-content;
+  background-color: #fff;
+  position: fixed;
+  top: 10rem;
+  right: 10rem;
+  box-shadow: 0px 15px 50px 2px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.shopping-list-title {
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.listed-item {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-top: 2px solid var(--Light-grayish-blue);
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary img[alt="product image"] {
+  height: 8rem;
+  border-radius: 4px;
+}
+
+.product-summary-name {
+  font-size: 1.4rem;
+  color: var(--Dark-grayish-blue);
+  line-height: 1.5;
+  letter-spacing: 0.05rem;
+  margin-bottom: 1.4rem;
+}
+
+.price-summary {
+  display: flex;
+  gap: 2.6rem;
+  align-items: center;
+}
+
+.summary-original-price {
+  font-size: 1.4rem;
+  color: var(--Dark-grayish-blue);
+  line-height: 1.5;
+}
+
+.summary .current-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--Black);
+}
+
+.shopping-list .btn-styled {
+  height: 5rem;
+  width: 100%;
+}
+
+.btn-remove-product {
+  width: 2rem;
+  transition: 0.2s;
+}
+.btn-remove-product:hover {
+  filter: brightness(0);
+}
+
+.no-item-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12rem;
+}
+
+.no-item {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.8rem;
+  color: var(--Dark-grayish-blue);
+  letter-spacing: 0.1px;
+}
+
+.no-item i {
+  font-size: 3rem;
+  display: inline-block;
+  color: var(--Dark-grayish-blue);
 }
