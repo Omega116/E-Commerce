@@ -375,9 +375,21 @@ button {
   align-items: center;
 }
 
+.btn-close-pop-up {
+  position: absolute;
+  filter: brightness(0.5);
+  top: -6rem;
+  right: 5rem;
+  width: 4rem;
+}
+
 .slider {
   position: relative;
-  width: 50rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 60rem;
   height: 50rem;
   background: transparent;
   border-radius: 20px;
@@ -387,13 +399,22 @@ button {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  margin: 0 auto;
+  height: 50rem;
 }
 
-.container > img {
+.sub-container {
+  width: 100%;
+  margin: 0 auto;
+  z-index: -1;
+  transition: 0.3s;
+}
+
+.sub-container > img {
+  cursor: default;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 5rem;
   transition: 0.3s;
   width: 50rem;
   height: 50rem;
@@ -410,16 +431,18 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .slide-rigth {
   top: 50%;
-  right: 0;
+  right: 5rem;
   transform: translate(50%, -50%);
 }
 .slide-left {
   top: 50%;
-  left: 0;
+  left: 5rem;
   transform: translate(-50%, -50%);
 }
 
@@ -431,6 +454,11 @@ button {
   height: 100%;
   z-index: 10;
   cursor: pointer;
+}
+
+.dots {
+  width: 50rem;
+  margin: 0 auto;
 }
 
 .dots .all-images {
@@ -457,6 +485,7 @@ button {
   right: 10rem;
   box-shadow: 0px 15px 50px 2px rgba(0, 0, 0, 0.1);
   z-index: 1;
+  animation: veritcalTransition 0.3s ease-out;
 }
 
 .shopping-list-title {
@@ -543,4 +572,15 @@ button {
   font-size: 3rem;
   display: inline-block;
   color: var(--Dark-grayish-blue);
+}
+
+@keyframes veritcalTransition {
+  from {
+    opacity: 0;
+    transform: translateY(-5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
 }

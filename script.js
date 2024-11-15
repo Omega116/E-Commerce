@@ -90,7 +90,7 @@ document
     infoBlock.style.margin = "auto 0 ";
   });
 
-const slidedImgs = document.querySelectorAll(".container > img");
+const slidedImgs = document.querySelectorAll(".container > .sub-container");
 const btnSlideRight = document.querySelector(".btn-slide-right");
 const btnSlideLeft = document.querySelector(".btn-slide-left");
 const dots = document.querySelector(".dots");
@@ -160,6 +160,7 @@ function ThumbnailSlideDirection(direction) {
 
 productImg.addEventListener("click", function () {
   swiperContainer.classList.remove("hidden");
+  let btnClosePopUp = swiperContainer.querySelector(".btn-close-pop-up");
   hidden = false;
   let id = Number(
     document.querySelector(".display-window .active-box img").getAttribute("id")
@@ -172,6 +173,13 @@ productImg.addEventListener("click", function () {
   curSlide = id - 1;
   slidedImgs.forEach((img, i) => {
     img.style.transform = `translateX(${100 * (i - curSlide)}%)`;
+  });
+
+  // Close Pop Up
+  btnClosePopUp.addEventListener("click", function (e) {
+    swiperContainer.classList.add("hidden");
+    ThumbnailSlideDirection(-1);
+    hidden = true;
   });
 });
 
@@ -212,19 +220,6 @@ PopUpThumbnails.forEach((thumbnail) =>
   })
 );
 
-// Close Pop Up
-
-swiperContainer.addEventListener("click", function (e) {
-  //Close if you click outside the Pop Up childs
-
-  if (!e.target.closest(".slider")) {
-    swiperContainer.classList.add("hidden");
-    ThumbnailSlideDirection(-1);
-  }
-  hidden = true;
-  refresh();
-});
-
 /* 
     Shopping list Code
  */
@@ -250,9 +245,10 @@ class Product {
     this.id = id;
   }
 }
-
+/* 
 // Display an alert in case of not specifying a quantity for the product
 const handleNullValue = function () {
+  shoppingList.classList.add("hidden");
   alert("Please specify a quantity for the product.");
 };
 
@@ -262,8 +258,8 @@ const generateRandomID = function () {
 
 // Add purshased products to shopping list
 const handlePurchaseEvent = function () {
-  let value = Number(document.querySelector(".quantity").innerHTML);
-  if (!value) {
+  let value = Number(document.querySelector(".quantity").innerText);
+  if (value === 0) {
     handleNullValue();
   } else {
     let currentPrice = Number(
@@ -377,8 +373,8 @@ const handleDeleteEvent = function () {
 };
 
 const displayShoppingList = function (pressedOnBuy) {
-  shoppingList.classList.remove("hidden");
   shoppingListInitialization();
+  shoppingList.classList.remove("hidden");
   if (pressedOnBuy) {
     handlePurchaseEvent();
   }
@@ -392,9 +388,137 @@ const displayShoppingList = function (pressedOnBuy) {
 btnBuy.addEventListener("click", () => displayShoppingList(true));
 
 btnShopping.addEventListener("click", () => displayShoppingList(false));
+ */
+
+const updateShoppingListVisibility = function () {
+  if (purchases.length === 0) {
+    shoppingList.classList.add("hidden");
+  } else {
+    shoppingList.classList.remove("hidden");
+  }
+};
+
+// Display an alert in case of not specifying a quantity for the product
+const handleNullValue = function () {
+  shoppingList.classList.toggle("hidden");
+  alert("Please specify a quantity for the product.");
+};
+
+// Add purshased products to shopping list
+const handlePurchaseEvent = function () {
+  let value = Number(document.querySelector(".quantity").innerText);
+  if (value === 0) {
+    handleNullValue();
+  } else {
+    if (purchases.length === 0) {
+      let currentPrice = Number(
+        btnBuy.closest(".info-block").querySelector(".current-price").innerText
+      );
+
+      let originalPrice = Number(
+        btnBuy
+          .closest(".info-block")
+          .querySelector(".original-price")
+          .innerText.slice(1)
+      );
+
+      let productName = btnBuy
+        .closest(".info-block")
+        .querySelector(".title").innerText;
+
+      let quantity = Number(
+        btnBuy.closest(".info-block").querySelector(".quantity").innerText
+      );
+
+      let product = new Product(
+        productName,
+        originalPrice,
+        currentPrice,
+        quantity
+      );
+
+      purchases.push(product);
+    }
+    if (purchases.length === 1) {
+      let quantity = Number(
+        btnBuy.closest(".info-block").querySelector(".quantity").innerText
+      );
+      purchases[0].quantity = quantity;
+    }
+  }
+};
+
+// Build HTML to insert in shoppingList
+const buildListedItemHTML = function () {
+  let html = ``;
+  if (purchases.length === 0) {
+    html = `<div class="listed-item">
+      <div class="no-item-container">
+        <p class="no-item">
+          No Items listed
+          <i class="bx bx-cube"></i>
+        </p>
+      </div>
+    </div>`;
+  } else {
+    html += `
+      <div class="listed-item" id="${purchases[0].id}">
+      <div class="summary">
+      <img
+      src="images/image-product-1-thumbnail.jpg"
+      alt="product image"
+      />
+      <div class="name-and-price">
+      <p class="product-summary-name">
+      ${purchases[0].productName}
+      </p>
+      <p class="price-summary">
+      <span class="summary-original-price"> $${purchases[0].originalPrice.toFixed(
+        2
+      )} * ${purchases[0].quantity} </span>
+      <span class="current-price"> ${purchases[0].currentPrice.toFixed(
+        2
+      )}</span>
+      </p>
+      </div>
+      <img
+      src="images/icon-delete.svg"
+      alt="remove product icon"
+      class="btn-remove-product"
+      />
+      </div>
+      <button class="btn-styled"><p>Checkout</p></button>
+      </div>
+      `;
+  }
+  return html;
+};
+
+const displayShoppingList = function (PressedOnBuy) {
+  if (PressedOnBuy) {
+    shoppingList.classList.remove("hidden");
+    handlePurchaseEvent();
+  } else {
+    shoppingList.classList.toggle("hidden");
+  }
+  const html = buildListedItemHTML();
+  shoppingList.querySelector(".shopping-list-content").innerHTML = html;
+
+  let btnRemoveProduct = document.querySelector(".btn-remove-product");
+  btnRemoveProduct?.addEventListener("click", function (e) {
+    e.preventDefault();
+    purchases = [];
+    const html = buildListedItemHTML();
+    shoppingList.querySelector(".shopping-list-content").innerHTML = html;
+  });
+};
+
+btnBuy.addEventListener("click", () => displayShoppingList(true));
+
+btnShopping.addEventListener("click", () => displayShoppingList(false));
 
 // Click outside the Shopping list to close
-const closeShoppingList = function (e) {
+/* const closeShoppingList = function (e) {
   if (
     !e.target.closest(".shopping-list") &&
     !e.target.closest('.profile img[alt="cart icon"]') &&
@@ -405,3 +529,4 @@ const closeShoppingList = function (e) {
   }
 };
 window.addEventListener("click", closeShoppingList);
+ */
